@@ -1,0 +1,28 @@
+
+body{
+	background-image: url("../images/seamless-2030395_1920.jpg");
+	color: black;
+}
+
+button{
+	height:100px;
+	width: 50%;
+	font-size: 18px;
+	margin-left: 25%;
+}
+.title{
+	text-align: center;
+	font-size: 45px;
+	color: white;
+}
+.container{
+	background-color: #D3D3D3;
+	width: 60%;
+	margin:auto;
+	font-size: 20px;
+	padding:20px;
+}
+.instructions{
+	color:black;
+
+}
