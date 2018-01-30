@@ -1,28 +1,42 @@
 
 
-var questions = {
-    questionOne: {
+var questions = [
+    {
       choices: [9, 10, 8, 7],
-      correct: 2,
+      correct: "8",
       text: 'How many planets are in our Solar System?'
       },
-    questionTwo: {
+    {
       choices: ['Jupiter', 'Neptune', 'Mars', 'Saturn'],
-      correct: 0,
+      correct: "Jupiter",
       text: 'What is the largest planet in our Solar System?'
       },
-    questionThree: 
+     
     {
       choices: ['Venus', 'Earth', 'Mercury', 'Neptune'],
-      correct: 2,
+      correct: "Mercury",
       text: 'What is the smallest planet in our solar system?'
+      },
+    {
+      choices: [3, 5, 4, 2],
+      correct: "4",
+      text: 'How many main groups of rings does Saturn have?'
     }
-};
+];
+
+//console.log(questions);
 
 var userScoreRight = 0;
 var userScoreWrong = 0;
+var unanswered = 0;
 var count = 30;
-var counter = setInterval(timer(), 1000);
+var counter = setInterval(timer, 1000);
+var questionNum = 0;
+
+
+// for(var i = 0; i < questions.length; i++){
+//   renderNewQuestion();
+// }
 
 
 function timer() {
@@ -36,11 +50,42 @@ function timer() {
   }
 };
 
-Object.keys(questions.text).forEach(function(key) {
 
-  console.log(key, questions[key]);
 
+//when document is opened
+$(document).ready(function() {
+  $(".questions").hide();
+  $(".choices").hide();
+  $(".timer").hide();
+  $(".alert").hide();
+  $(".endGame").hide();
 });
+
+//on the click of the START button
+$("#start").click(function() {
+    console.log("work");
+    $(".instructions").hide();
+    $(".questions").show();
+    $(".choices").show();
+    $(".timer").show();
+    renderNewQuestion()
+    timer();
+});
+
+
+  function renderNewQuestion() {
+  $("#timer").text(count);
+      $("#newQuestion").text(questions[questionNum].text);
+      $("#a").text(questions[questionNum].choices[0]).parent().attr("data-choices", questions[questionNum].choices[0]);
+      $("#b").text(questions[questionNum].choices[1]).parent().attr("data-choices", questions[questionNum].choices[1]);
+      $("#c").text(questions[questionNum].choices[2]).parent().attr("data-choices", questions[questionNum].choices[2]);
+      $("#d").text(questions[questionNum].choices[3]).parent().attr("data-choices", questions[questionNum].choices[3]);
+
+      console.log(questions[questionNum].choices[0]);
+  };
+
+
+
 
 //DOM ELEMENTS
 // var questionDiv = $('.questions')
@@ -48,7 +93,7 @@ Object.keys(questions.text).forEach(function(key) {
 // var timerDiv = $('.timer')
 
 
-// console.log(questions.questionOne.text)
+
 
 
 // dom elements
@@ -65,101 +110,56 @@ Object.keys(questions.text).forEach(function(key) {
 
 // }
 
+$(".choices button").on( "click", function(){
+  //alert("click")
+  var userGuess = $(this).attr("data-choices")
+ // alert(userGuess)
+ alert("user guessed: " + userGuess + " correct answer: " + questions[questionNum].correct);
+ if(userGuess == questions[questionNum].correct){
+  userScoreRight++
+  updateUserRight()
+ }else if(count == 0){
+  alert("Times Up!!")
+ }else{
+  userScoreWrong++
+  updateUserWrong()
+ }questionNum++ 
 
-$(document).ready(function() {
-  $(".questions").hide();
-  $(".choices").hide();
-  $(".timer").hide();
-})
+if (questionNum < questions.length){
 
+ renderNewQuestion();
+ updateUserRight();
+ updateUserWrong();
 
-
-$("#start").click(function() {
-    console.log("work");
-    $(".instructions").hide();
-    $(".questions").show();
-    $(".choices").show();
-    $(".timer").show();
-    renderQuestion1();
-    timer();
+}else{
+  finalPage();
+}
 
 });
 
 
-
-$("#buttonA, #buttonB, #buttonC, #buttonD").click(function() {
-        if(this.id = "#buttonA") {
-          // console.log("button a works");
-          userScoreWrong++
-          renderQuestion2();
-        }else if(this.id = "#buttonB"){
-          userScoreWrong++
-          renderQuestion2();
-          // console.log("buttonA works")
-        }else if(this.id = "#buttonC"){
-          userScoreRight++
-          renderQuestion2();
-        }else if(this.id = "#buttonD"){
-          userScoreWrong++
-          renderQuestion2();
-        }
-      
-    });
-
-
-function renderQuestion1() {
-    $("#timer").text(count);
-    $("#newQuestion").text(questions.questionOne.text);
-    $("#a").text(questions.questionOne.choices[0]);
-    $("#b").text(questions.questionOne.choices[1]);
-    $("#c").text(questions.questionOne.choices[2]);
-    $("#d").text(questions.questionOne.choices[3]);
-
-    // $("#buttonA", "#buttonB", "buttonC", "buttonD").click(function() {
-    //   console.log("button");
-    // });
+function updateUserRight(){
+  $("#correctAnswers").text(userScoreRight);
+  console.log(updateUserRight);
 
 }
 
-function renderQuestion2() {
-    $("#timer").text(count);
-    $("#newQuestion").text(questions.questionTwo.text);
-    $("#a").text(questions.questionTwo.choices[0]);
-    $("#b").text(questions.questionTwo.choices[1]);
-    $("#c").text(questions.questionTwo.choices[2]);
-    $("#d").text(questions.questionTwo.choices[3]);
+function updateUserWrong(){
+  $("#incorrectAnswers").text(userScoreWrong);
+  console.log(updateUserWrong);
 }
 
-function renderQuestion3() {
-    $("#timer").text(count);
-    $("#newQuestion").text(questions.questionThree.text);
-    $("#a").text(questions.questionThree.choices[0]);
-    $("#b").text(questions.questionThree.choices[1]);
-    $("#c").text(questions.questionThree.choices[2]);
-    $("#d").text(questions.questionThree.choices[3]);
+function updaterUnanswered(){
+  $("#unansweredQuestions").text(unanswered);
 }
 
-// answerDiv.on('click', function(event) {
-//   var target = event.target
+function finalPage(){
+  $(".endGame").show();
+  $(".questions").hide();
+  $(".choices").hide();
+  $(".timer").hide();
+}
 
-// })
-
-
-// function renderQuestion(questionObj) {
-//   questionDiv.text(questionObj.text)
-//   answerDiv.empty()
-//   for (var i=0; i < questionObj.choices; i++) {
-//     answerDiv.append("<span data-value=" + i + ">" + questionObj.choices[i] + "</span>")
-//   }
-// }
-
-
-// function startTimer() {
-//   timer = 60;
-//   setInterval(function() {
-//     timer--
-//   }, 1000)
-// }
 
 
 
