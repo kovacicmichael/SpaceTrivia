@@ -29,26 +29,28 @@ var questions = [
 var userScoreRight = 0;
 var userScoreWrong = 0;
 var unanswered = 0;
-var count = 30;
-var counter = setInterval(timer, 1000);
+var count = 5;
+var timerId = setInterval(countdown, 1000);
 var questionNum = 0;
 
 
-// for(var i = 0; i < questions.length; i++){
-//   renderNewQuestion();
-// }
 
-
-function timer() {
-
-  count=count-1;
-  if (count <= 0)
-  {
-     clearInterval(counter);
-     //counter ended, do something here
-     return;
+function countdown() {
+  if (count <= 0) {
+    clearTimeout(timerId);
+    alert("times up")
+    resetTimer();
+    //alert("Time's Up!!")
+  } else {
+    $("#timer").text(count);
+    count--;
   }
+
 };
+
+function resetTimer(){
+  count = 5;
+}
 
 
 
@@ -69,12 +71,13 @@ $("#start").click(function() {
     $(".choices").show();
     $(".timer").show();
     renderNewQuestion()
-    timer();
+    resetTimer();
+    countdown();
 });
 
 
   function renderNewQuestion() {
-  $("#timer").text(count);
+      $("#timer").text(count);
       $("#newQuestion").text(questions[questionNum].text);
       $("#a").text(questions[questionNum].choices[0]).parent().attr("data-choices", questions[questionNum].choices[0]);
       $("#b").text(questions[questionNum].choices[1]).parent().attr("data-choices", questions[questionNum].choices[1]);
@@ -102,24 +105,23 @@ $("#start").click(function() {
 // timer
 
 
-// function game() {
-//   for(var i=0; i < questions.length; i++) {
-//     startTimer()
-//     renderQuestion(questions[i])
-//   }
-
-// }
-
 $(".choices button").on( "click", function(){
   //alert("click")
   var userGuess = $(this).attr("data-choices")
  // alert(userGuess)
- alert("user guessed: " + userGuess + " correct answer: " + questions[questionNum].correct);
+ resetTimer();
+ countdown();
+
  if(userGuess == questions[questionNum].correct){
   userScoreRight++
   updateUserRight()
- }else if(count == 0){
-  alert("Times Up!!")
+
+ }else if (count <= 0){
+  unanswered++
+  updaterUnanswered()
+  alert("times up")
+  resetTimer();
+  countdown();
  }else{
   userScoreWrong++
   updateUserWrong()
@@ -135,6 +137,21 @@ if (questionNum < questions.length){
   finalPage();
 }
 
+});
+
+$("#startOver").click(function(){
+  questionNum = 0;
+  userScoreRight = 0;
+  userScoreWrong = 0;
+  unanswered = 0;
+
+  resetTimer();
+  countdown();
+  renderNewQuestion();
+  $(".endGame").hide();
+  $(".questions").show();
+  $(".choices").show();
+  $(".timer").show();
 });
 
 
@@ -158,7 +175,7 @@ function finalPage(){
   $(".questions").hide();
   $(".choices").hide();
   $(".timer").hide();
-}
+};
 
 
 
