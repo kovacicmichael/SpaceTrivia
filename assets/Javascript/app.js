@@ -37,9 +37,39 @@ var questionNum = 0;
 
 function countdown() {
   if (count <= 0) {
-    clearTimeout(timerId);
-    alert("times up")
+    var userGuess = $(this).attr("data-choices")
     resetTimer();
+    countdown();
+
+      if(count <= 0) {
+        unanswered++
+        updateUnanswered();
+        resetTimer();
+        countdown();
+        alert("times up");
+      }
+
+      else if(userGuess == questions[questionNum].correct){
+      userScoreRight++
+
+      updateUserRight()
+
+      }else{
+      // userScoreWrong++
+      // updateUserWrong()
+      }questionNum++ 
+
+      if (questionNum < questions.length){
+
+       renderNewQuestion();
+       updateUserRight();
+       updateUserWrong();
+       updateUnanswered();
+
+      }else{
+        finalPage();
+      }
+
     //alert("Time's Up!!")
   } else {
     $("#timer").text(count);
@@ -114,12 +144,12 @@ $(".choices button").on( "click", function(){
 
  if(userGuess == questions[questionNum].correct){
   userScoreRight++
+
   updateUserRight()
 
  }else if (count <= 0){
   unanswered++
-  updaterUnanswered()
-  alert("times up")
+  updateUnanswered()
   resetTimer();
   countdown();
  }else{
@@ -166,7 +196,7 @@ function updateUserWrong(){
   console.log(updateUserWrong);
 }
 
-function updaterUnanswered(){
+function updateUnanswered(){
   $("#unansweredQuestions").text(unanswered);
 }
 
