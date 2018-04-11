@@ -1,5 +1,5 @@
 # Welcome to SpaceTrivia
-SpaceTrivia is a static space trivia game using HTML, CSS, and Javascript.
+SpaceTrivia is a static trivia game using HTML, CSS, and Javascript.
 
 ***
 
