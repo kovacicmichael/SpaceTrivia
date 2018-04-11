@@ -13,11 +13,7 @@
 <body>
 
 <h1 class="title">Space Trivia!</h1>
-
 	<div class="container">
-
-	
-
 		<div class="instructions">
 
 			<p>Welcome to Space Trivia!  Here you will find a variety of questiions related to our beautiful universe.  Some will be easy, others difficult; give it your best shot as we learn a little about our universe together!</p>
@@ -31,8 +27,6 @@
 			<button id="start">START</button>
 
 		</div>
-
-
 		<div class="timer">
 			<p>Time Remaining: <span id="timer"></span>  seconds</p>
 
@@ -49,9 +43,21 @@
 			<button id="buttonB">B: <span id="b"></span></button>
 			<button id="buttonC">C: <span id="c"></span></button>
 			<button id="buttonD">D: <span id="d"></span></button>
-
 		</div>
 
+		<div class="showAnswerCorrect">
+			<h3 align="center">That is correct! Well Done!</h3>
+			<p id="newAnswer"></p>
+			<button class="next">Next Question</button>
+		</div>
+
+		<div class="showAnswerIncorrect">
+			<h3 align="center">Sorry that was not correct</h3>
+			<p id="newAnswerIncorrect"></p>
+			<button class="next">Next Question</button>
+		</div>
+
+		
 		<div class="alert">
 			<h2 id="timesUp"></h2>
 		</div>
@@ -64,6 +70,7 @@
 			<p class="finalScore">Unanswered Questions: <span id="unansweredQuestions"></span></p>
 
 			<button id="startOver">Start Over?</button>
+			<button id="home">Home</button>
 
 		</div>
 
