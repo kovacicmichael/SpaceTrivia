@@ -9,7 +9,7 @@ Upon opening SpaceTrivia the user is met with instructions for the game.  Essent
 ***
 
 ## Link to Deployed Site
-https://kovacicmichael.github.io/TriviaGame/
+https://kovacicmichael.github.io/SpaceTrivia/
 
 
 ***
